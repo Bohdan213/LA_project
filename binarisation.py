@@ -3,9 +3,9 @@ import cv2
 
 def give_bin_image(gray_img, show_mode=False):
 
-    blurred = cv2.GaussianBlur(gray_img, (5, 5), 0)  # making Gaussian Blur in order to reduce the noise
+    blurred = cv2.GaussianBlur(gray_img, (9, 9), cv2.BORDER_DEFAULT)  # making Gaussian Blur in order to reduce the noise
 
-    threshold_value = 185  # threshold value
+    threshold_value = 170  # threshold value
     max_value = 255
     tv, binary_img = cv2.threshold(blurred,
                                    threshold_value, max_value, cv2.THRESH_BINARY_INV)
