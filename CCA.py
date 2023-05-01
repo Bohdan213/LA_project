@@ -11,11 +11,11 @@ def get_CCA(binary_img, gray_img=None):
             # Area of the component
             width = stats[i, cv2.CC_STAT_WIDTH]
             height = stats[i, cv2.CC_STAT_HEIGHT]
-            if width > 20 or height > 20:
+            if width > 30 or height > 30:
                 componentMask = (labels == i).astype("uint8") * 255
                 output = cv2.bitwise_or(output, componentMask)
 
-        # cv2.imshow("Filtered Components", output)
-        # cv2.waitKey(0)
+        cv2.imshow("Filtered Components", output)
+        cv2.waitKey(0)
 
     return analysis
