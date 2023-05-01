@@ -6,9 +6,7 @@ import numpy as np
 from sklearn.svm import SVC
 import pandas as pd
 
-
-
-order_symbol = ['a', 'b', '1', '2', '6', '+']
+order_symbol = ['a', 'b', 'c', '0', '1', '2', '3', '6', '+']
 
 # symbols_frame = pd.DataFrame({"v1": [], "v2": [], "v3": [],
 #                                   "v4": [], "v5": [], "v6": [],
@@ -27,11 +25,12 @@ symbols_frame = pd.DataFrame({"v1": [], "v2": [], "v3": [],
                               "v15": [], "v14": [], "v13": [],
                               "v16": [], "value": []})
 
+
 for symbol_num, symbol in enumerate(order_symbol):
-    for idx in range(1, 3, 1):
+    for idx in range(1, 4, 1):
         img_path = f"images/test/test_image_{symbol}_{idx}.jpg"
         gray_img = cv2.imread(img_path, 0)  # 0 because we load in gray scale mode
-        binary_img = get_bin_image(gray_img, False)
+        binary_img = get_bin_image(gray_img, show_mode=False)
         num_labels, labels, stats, centroids = get_CCA(binary_img)
         for label in range(1, num_labels):
 
@@ -44,15 +43,16 @@ for symbol_num, symbol in enumerate(order_symbol):
                 pixels_intensity = np.append(pixels_intensity, ord(symbol))
                 symbols_frame.loc[len(symbols_frame)] = pixels_intensity
 
+
 train_X = symbols_frame.iloc[:, 0:16]
 train_Y = symbols_frame.value
 
 symbols_model = SVC()
 symbols_model.fit(train_X, train_Y)
 
-img_path = "images//validation/image_validation_sentence4.jpg"
+img_path = "images/validation/image_validation_sentence5.jpg"
 gray_img = cv2.imread(img_path, 0)  # 0 because we load in gray scale mode
-binary_img = get_bin_image(gray_img, False)
+binary_img = get_bin_image(gray_img, show_mode=False)
 num_labels, labels, stats, centroids = get_CCA(binary_img, gray_img)
 
 result = []
