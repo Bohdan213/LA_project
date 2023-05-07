@@ -16,13 +16,6 @@ symbols_frame = pd.DataFrame({"v1": [], "v2": [], "v3": [],
                                    "v22": [], "v23": [], "v24": [],
                                    "v25": [], "value": []})
 
-# symbols_frame = pd.DataFrame({"v1": [], "v2": [], "v3": [],
-#                               "v4": [], "v5": [], "v6": [],
-#                               "v7": [], "v8": [], "v9": [],
-#                               "v10": [], "v11": [], "v12": [],
-#                               "v15": [], "v14": [], "v13": [],
-#                               "v16": [], "value": []})
-
 symbols_model = load('model.joblib')
 
 img_path = "images/validation/image_validation_sentence4.jpg"
