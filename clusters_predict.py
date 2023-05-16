@@ -17,7 +17,7 @@ for i in range(0, num_clusters):
     model = load(f"models/model_cluster_{i}.joblib")
     models.append(model)
 
-img_path = "images/validation/image_validation_sentence9.jpg"
+img_path = "images/validation/image_validation_sentence4.jpg"
 gray_img = cv2.imread(img_path, 0)  # 0 because we load in gray scale mode
 binary_img = get_bin_image(gray_img, show_mode=False)
 num_labels, labels, stats, centroids = get_CCA(binary_img, gray_img)
@@ -30,7 +30,7 @@ for label in range(1, num_labels):
     x, y, w, h, _ = stats[label]
 
     if width > 30 or height > 30:
-        pixels_intensity = get_DFZ(labels, label, stats, 5)
+        pixels_intensity = get_DFZ(labels, label, stats, 8)
         profiles = get_profile(label, labels, stats)
         image_features = [*pixels_intensity]
         image_features.extend(profiles)
@@ -38,7 +38,8 @@ for label in range(1, num_labels):
         kluster_prediction = kmeans.predict(validation.values)
 
         prediction = models[kluster_prediction[0]].predict(validation)
-        result.append((x, classes[int(prediction[0])]))
+        result.append(((x, y, h, w), classes[int(prediction[0])]))
 
 result.sort()
+
 print(*[_[1] for _ in result])

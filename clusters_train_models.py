@@ -20,7 +20,7 @@ for idx in range(len(classes)):
 
 symbols_frame = pd.DataFrame()
 
-num_clusters = 1
+num_clusters = 4
 
 for symbol_num, symbol in enumerate(classes):
     for idx in range(1, 4, 1):
@@ -33,17 +33,15 @@ for symbol_num, symbol in enumerate(classes):
             width = stats[label, cv2.CC_STAT_WIDTH]
             height = stats[label, cv2.CC_STAT_HEIGHT]
             if width > 30 or height > 30:
-                pixels_intensity = get_DFZ(labels, label, stats, 5)
+                pixels_intensity = get_DFZ(labels, label, stats, 8)
                 profiles = get_profile(label, labels, stats)
                 image_features = [*pixels_intensity]
                 image_features.extend(profiles)
                 image_features.append(classes_code[symbol])
                 symbols_frame = symbols_frame.append(pd.Series(image_features), ignore_index=True)
 
-
-X = symbols_frame.iloc[:, 0:29]
+X = symbols_frame.iloc[:, 0:68]
 y = symbols_frame.iloc[:, -1]
-
 
 class_centroids = []
 
@@ -64,11 +62,13 @@ symbols_frame['Cluster'] = [class_cluster_labels[int(class_label)] for class_lab
 models = []
 for cluster in range(num_clusters):
     correspond_cluster = symbols_frame[symbols_frame['Cluster'] == cluster]
-    X_cluster = correspond_cluster.iloc[:, 0:29]
+    X_cluster = correspond_cluster.iloc[:, 0:68]
     y_cluster = correspond_cluster.iloc[:, -2]
-    model = SVC(C=1.0, kernel='rbf', gamma='scale', probability=True)
+    model = SVC(C=3.0, kernel='rbf', gamma='scale', decision_function_shape='ovo')
     model.fit(X_cluster, y_cluster)
     models.append(model)
 
 for i, model in enumerate(models):
     dump(model, f'models/model_cluster_{i}.joblib')
+
+
