@@ -8,7 +8,7 @@ from profiles import get_profile
 import time
 
 classes = ['a', 'b', 'c', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+',
-                'x', 'y', 'd', 'e', 'z']
+                'x', 'y', 'd', 'e', 'z', '-', 'belongs', 'big_e', 'big_a']
 
 result = []
 total_res = 0
@@ -51,7 +51,6 @@ for symbol in classes:
             if classes[int(prediction[0])] == symbol:
                 res += 1
             cnt += 1
-            # print(classes[int(prediction[0])], symbol)
     total_res += res
     total_cnt += cnt
     res = res / cnt

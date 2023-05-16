@@ -7,7 +7,7 @@ from joblib import load
 from profiles import get_profile
 
 classes = ['a', 'b', 'c', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+',
-                'x', 'y', 'd', 'e', 'z']
+                'x', 'y', 'd', 'e', 'z', '-', 'belongs', 'big_e', 'big_a']
 
 kmeans = load("kluster/kmeans.joblib")
 num_clusters = kmeans.n_clusters
@@ -19,7 +19,7 @@ for i in range(0, num_clusters):
 
 img_path = "images/validation/image_validation_sentence4.jpg"
 gray_img = cv2.imread(img_path, 0)  # 0 because we load in gray scale mode
-binary_img = get_bin_image(gray_img, show_mode=False)
+binary_img = get_bin_image(gray_img, show_mode=True)
 num_labels, labels, stats, centroids = get_CCA(binary_img, gray_img)
 
 result = []
