@@ -40,7 +40,7 @@ for symbol in classes:
         x, y, w, h, _ = stats[label]
 
         if width > 30 or height > 30:
-            pixels_intensity = get_DFZ(labels, label, stats, 8)
+            pixels_intensity = get_DFZ(labels, label, stats, 7)
             profiles = get_profile(label, labels, stats)
             image_features = [*pixels_intensity]
             image_features.extend(profiles)
@@ -55,7 +55,7 @@ for symbol in classes:
     total_cnt += cnt
     res = res / cnt
     result.append((symbol, res))
-
+print(time.time() - a)
 
 print(result)
 print(total_res / total_cnt)
