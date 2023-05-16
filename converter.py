@@ -9,18 +9,24 @@ def converter(input_data):
     """
     fixed_data = [(_[0][1]+_[0][2]/3, _[0][1]+_[0][2]/3*2, _[1])
                   for _ in input_data]
-    output = fixed_data[0][2]
-    prev_elem = fixed_data[0]
-
     signs = ["+", "-", "*", "/"]
+    special = {"belongs":"\in ", "big_e":"\exists ", "big_a":"\\forall "}
 
-    for elem in fixed_data[1:]:
+    prev_elem = fixed_data[0]
+    output = fixed_data[0][2] if fixed_data[0][2] not in special else special[fixed_data[0][2]]
+
+    for elem, old in zip(fixed_data[1:], input_data[1:]):
         if not elem[2] in signs and not prev_elem[2] in signs:
             if elem[0] > prev_elem[1]:
-                output += "_"
+                if old[0][1] > prev_elem[0]:
+                    output += "_"
             elif elem[1] < prev_elem[0]:
-                output += "^"
-        output += elem[2]
+                if old[0][1]+old[0][2] < prev_elem[1]:
+                    output += "^"
+        if elem[2] in special:
+            output += special[elem[2]]
+        else:
+            output += elem[2]
         prev_elem = elem
     return output
 
