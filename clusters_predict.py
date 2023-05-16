@@ -5,6 +5,7 @@ import cv2
 import pandas as pd
 from joblib import load
 from profiles import get_profile
+from converter import converter
 
 classes = ['a', 'b', 'c', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+',
                 'x', 'y', 'd', 'e', 'z', '-', 'belongs', 'big_e', 'big_a']
@@ -42,4 +43,5 @@ for label in range(1, num_labels):
 
 result.sort()
 
-print(*[_[1] for _ in result])
+# print(*[_[1] for _ in result])
+print(converter(result))
